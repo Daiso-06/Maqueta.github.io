@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfabetización para Todos - Modelo Inclusivo</title>
+    <style>
+        :root {
+            --primary: #2E86AB;
+            --secondary: #A23B72;
+            --accent: #F18F01;
+            --success: #4CAF50;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --text: #212529;
+            --intro-bg: #E9F7FE;
+            --model-bg: #F5E6F0;
+            --value-bg: #FFF4E6;
+            --target-bg: #E8F5E9;
+            --interaction-bg: #E3F2FD;
+            --income-bg: #FFF8E1;
+            --scalability-bg: #E8F5E9;
+            --gallery-bg: #F3E5F5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            text-decoration: none;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .audio-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto;
+            text-align: center;
+            max-width: 800px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .audio-info-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .tabs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: white;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .tab:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .audio-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-btn:hover {
+            background: #e67e00;
+            transform: scale(1.1);
+        }
+        
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .section-audio {
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-weight: bold;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .image-placeholder {
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-style: italic;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        
+        .model-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .model-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .intro-section {
+            background-color: var(--intro-bg);
+        }
+        
+        .model-section {
+            background-color: var(--model-bg);
+        }
+        
+        .value-section {
+            background-color: var(--value-bg);
+        }
+        
+        .target-section {
+            background-color: var(--target-bg);
+        }
+        
+        .interaction-section {
+            background-color: var(--interaction-bg);
+        }
+        
+        .income-section {
+            background-color: var(--income-bg);
+        }
+        
+        .scalability-section {
+            background-color: var(--scalability-bg);
+        }
+        
+        .gallery-section {
+            background-color: var(--gallery-bg);
+        }
+        
+        .audio-player {
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contrast-controls {
+            text-align: center;
+            padding: 1rem;
+            background-color: #eee;
+        }
+        
+        .contrast-btn {
+            background: white;
+            border: 1px solid var(--dark);
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .contrast-btn:hover {
+            background-color: #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                border-radius: 0;
+                text-align: left;
+            }
+            
+            .tab.active {
+                border-radius: 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2, h3 {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .audio-btn {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
+    <header>
+        <div class="header-content">
+            <h1>Alfabetización para Todos</h1>
+            <p class="subtitle">Modelo de Negocio Inclusivo</p>
+        </div>
+    </header>
+    
+    <div class="audio-info">
+        <span class="audio-info-icon">🔊</span>
+        <strong>Accesibilidad de Audio:</strong> Encuentra botones de sonido <button class="audio-btn" style="margin: 0 5px; display: inline-flex;">🔊</button> junto a los títulos. Haz clic para escuchar el contenido de cada sección.
+    </div>
+    
+    <div class="contrast-controls">
+        <button id="contrast-btn" class="contrast-btn">Alto Contraste</button>
+        <button id="reset-btn" class="contrast-btn">Restablecer</button>
+    </div>
+    
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab active" data-tab="intro">Introducción</button>
+            <button class="tab" data-tab="model">Tipo de Modelo</button>
+            <button class="tab" data-tab="value">Promesa de Valor</button>
+            <button class="tab" data-tab="target">Grupo Objetivo</button>
+            <button class="tab" data-tab="interaction">Interacciones</button>
+            <button class="tab" data-tab="income">Modelo de Ingresos</button>
+            <button class="tab" data-tab="scalability">Escalabilidad</button>
+        </div>
+        
+        <div id="main-content">
+            <!-- Introducción -->
+            <div id="intro" class="tab-content intro-section active">
+                <h2>Introducción
+                    <button class="audio-btn" onclick="speakText('Introducción. En México, el analfabetismo sigue siendo una barrera invisible que afecta a millones, especialmente en zonas rurales. Leer y escribir no debería ser un privilegio, sino un derecho fundamental.')">🔊</button>
+                </h2>
+                
+                <p>En México, el analfabetismo sigue siendo una barrera invisible que afecta a millones, especialmente en zonas rurales.</p>
+                
+                <div class="highlight">
+                    <p>Leer y escribir no debería ser un privilegio, sino un derecho fundamental.</p>
+                </div>
+                
+                <h3>Contexto del Problema
+                    <button class="audio-btn" onclick="speakText('Contexto del Problema. Aunque ha disminuido en los últimos años, el analfabetismo sigue condenando a muchas personas a la exclusión y dependencia.')">🔊</button>
+                </h3>
+                
+                <p>Aunque ha disminuido en los últimos años, el analfabetismo sigue condenando a muchas personas a la exclusión y dependencia.</p>
+          
+                <div class="image-gallery">
+                 <img src="imagenes/Imagen rural.jpg" alt="Comunidad rural mexicana">
+                 <img src="imagenes/Imagen Personas adultas en situación de analfabetismo.jpg" alt="Personas adultas en situación de analfabetismo">
+                 <img src="imagenes/Imagen Zona de difícil acceso.jpg" alt="Zona de difícil acceso">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tipo de Modelo -->
+            <div id="model" class="tab-content model-section">
+                <h2>Tipo de Modelo
+                    <button class="audio-btn" onclick="speakText('Tipo de Modelo. Modelo Empleado. Este modelo busca crear oportunidades de empleo formal en zonas rurales, beneficiando tanto a estudiantes como a instructores locales. Genera empleo local, utiliza recursos de la comunidad y fomenta el desarrollo económico.')">🔊</button>
+                </h2>
+                
+                <h3>Modelo Empleado</h3>
+                
+                <p>Este modelo busca crear oportunidades de empleo formal en zonas rurales, beneficiando tanto a estudiantes como a instructores locales.</p>
+                
+                <div class="image-gallery">
+                    <img src="imagenes/Imagen Personas de la comunidad como instructores.jpg" alt="Personas de la comunidad como instructores">
+                    <img src="imagenes/Imagen Espacios de enseñanza locales.jpg" alt="Espacios de enseñanza locales">
+                </div>
+                
+                <h3>Características Principales
+                    <button class="audio-btn" onclick="speakText('Características Principales. Genera empleo local, utiliza recursos de la comunidad y fomenta el desarrollo económico.')">🔊</button>
+                </h3>
+                
+                <ul>
+                    <li>Genera empleo local</li>
+                    <li>Utiliza recursos de la comunidad</li>
+                    <li>Fomenta el desarrollo económico</li>
+                </ul>
+            </div>
+            
+            <!-- Promesa de Valor -->
+            <div id="value" class="tab-content value-section">
+                <h2>Promesa de Valor
+                    <button class="audio-btn" onclick="speakText('Promesa de Valor.')">🔊</button>
+                </h2>
+                
+                <div class="model-cards">
+                    <div class="model-card">
+                        <h3>Ecosistema de Aprendizaje
+                            <button class="audio-btn" onclick="speakText('Ecosistema de Aprendizaje. Ofrecemos un sistema práctico y relevante que empodera a jóvenes y adultos en zonas rurales.')">🔊</button>
+                        </h3>
+                        <p>Ofrecemos un sistema práctico y relevante que empodera a jóvenes y adultos en zonas rurales.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <h3>Habilidades Numéricas
+                            <button class="audio-btn" onclick="speakText('Habilidades Numéricas. Mejoramos la economía enseñando a manejar finanzas, entender préstamos y optimizar negocios.')">🔊</button>
+                        </h3>
+                        <p>Mejoramos la economía enseñando a manejar finanzas, entender préstamos y optimizar negocios.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <h3>Inclusión Educativa
+                            <button class="audio-btn" onclick="speakText('Inclusión Educativa. Damos oportunidades a quienes nunca pudieron asistir a la escuela por falta de acceso o recursos.')">🔊</button>
+                        </h3>
+                        <p>Damos oportunidades a quienes nunca pudieron asistir a la escuela por falta de acceso o recursos.</p>
+                    </div>
+                </div>
+                
+                <div class="image-gallery">
+                    <img src="imagenes/Imagen Persona aprendiendo a leer.jpg" alt="Persona aprendiendo a leer">
+                   <img src="imagenes/Imagen Uso de herramientas financieras básicas.png" alt="Uso de herramientas financieras básicas">
+                </div>
+            </div>
+            
+            <!-- Grupo Objetivo -->
+            <div id="target" class="tab-content target-section">
+                <h2>Grupo Objetivo
+                    <button class="audio-btn" onclick="speakText('Grupo Objetivo.')">🔊</button>
+                </h2>
+                
+                <div class="model-cards">
+                    <div class="model-card">
+                        <h3>Personas Rurales
+                            <button class="audio-btn" onclick="speakText('Personas Rurales. De 15 a 65 años en comunidades de difícil acceso, analfabetos totales o funcionales.')">🔊</button>
+                        </h3>
+                        <p>De 15 a 65+ años en comunidades de difícil acceso, analfabetos totales o funcionales.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <h3>Trabajadores desde Niños
+                            <button class="audio-btn" onclick="speakText('Trabajadores desde Niños. Personas que priorizaron el trabajo sobre la educación desde temprana edad.')">🔊</button>
+                        </h3>
+                        <p>Personas que priorizaron el trabajo sobre la educación desde temprana edad.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <h3>Mujeres
+                            <button class="audio-btn" onclick="speakText('Mujeres. Las más afectadas por la brecha educativa en zonas rurales.')">🔊</button>
+                        </h3>
+                        <p>Las más afectadas por la brecha educativa en zonas rurales.</p>
+                    </div>
+                </div>
+                
+                <div class="image-gallery">
+                    <img src="imagenes/Imagen Diversidad de edades en el grupo objetivo.png" alt="Diversidad de edades en el grupo objetivo">
+                    <img src="imagenes/Imagen Mujeres en comunidades rurales.jpeg" alt="Mujeres en comunidades rurales">
+                </div>
+            </div>
+            
+            <!-- Interacciones -->
+            <div id="interaction" class="tab-content interaction-section">
+                <h2>Interacciones con el Grupo Objetivo
+                    <button class="audio-btn" onclick="speakText('Interacciones con el Grupo Objetivo. Modelo Presencial Comunitario, Tecnología Apropiada y Prácticas Contextualizadas.')">🔊</button>
+                </h2>
+                
+                <div class="model-cards">
+                    <div class="model-card">
+                        <h3>Modelo Presencial Comunitario
+                            <button class="audio-btn" onclick="speakText('Modelo Presencial Comunitario. Puntos de enseñanza en lugares conocidos, instructores locales capacitados, genera confianza y empleo.')">🔊</button>
+                        </h3>
+                        <ul>
+                            <li>Puntos de enseñanza en lugares conocidos</li>
+                            <li>Instructores locales capacitados</li>
+                            <li>Genera confianza y empleo</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="model-card">
+                        <h3>Tecnología Apropiada
+                            <button class="audio-btn" onclick="speakText('Tecnología Apropiada. Apps y tablets sin necesidad de internet, furgoneta equipada con tecnología, tutores que guían el proceso.')">🔊</button>
+                        </h3>
+                        <ul>
+                            <li>Apps y tablets sin necesidad de internet</li>
+                            <li>Furgoneta equipada con tecnología</li>
+                            <li>Tutores que guían el proceso</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="model-card">
+                        <h3>Prácticas Contextualizadas
+                            <button class="audio-btn" onclick="speakText('Prácticas Contextualizadas. Aprendizaje basado en actividades cotidianas, leer etiquetas de abonos, calcular precios de productos.')">🔊</button>
+                        </h3>
+                        <ul>
+                            <li>Aprendizaje basado en actividades cotidianas</li>
+                            <li>Leer etiquetas de abonos</li>
+                            <li>Calcular precios de productos</li>
+                        </ul>
+                    </div>
+                </div>
+               
+                
+                <div class="image-gallery">
+                     <img src="imagenes/Imagen Punto de enseñanza comunitario.png" alt="Punto de enseñanza comunitario">
+                    <img src="imagenes/Imagen Uso de tablets en educación.jpg" alt="Uso de tablets en educación">
+                </div>
+            </div>
+            
+            <!-- Modelo de Ingresos -->
+            <div id="income" class="tab-content income-section">
+                <h2>Modelo de Ingresos
+                    <button class="audio-btn" onclick="speakText('Modelo de Ingresos. Intercambio de Productos y Colaboraciones con organizaciones.')">🔊</button>
+                </h2>
+                
+                <div class="model-cards">
+                    <div class="model-card">
+                        <h3>Intercambio de Productos
+                            <button class="audio-btn" onclick="speakText('Intercambio de Productos. Los estudiantes pagan con productos locales que luego se venden en mercados urbanos.')">🔊</button>
+                        </h3>
+                        <p>Los estudiantes pagan con productos locales que luego se venden en mercados urbanos.</p>
+                    </div>
+                    
+                    <div class="model-card">
+                        <h3>Colaboraciones
+                            <button class="audio-btn" onclick="speakText('Colaboraciones. Asociación con INEA y otras organizaciones para acceder a fondos y recursos.')">🔊</button>
+                        </h3>
+                        <p>Asociación con INEA y otras organizaciones para acceder a fondos y recursos.</p>
+                    </div>
+                </div>
+                
+                <div class="image-gallery">
+                    <img src="imagenes/Imagen Productos locales como pago.png" alt="Productos locales como pago">
+                    <img src="imagenes/Imagen Logotipo INEA.png" alt="Logotipo INEA">
+                </div>
+            </div>
+            
+            <!-- Escalabilidad -->
+            <div id="scalability" class="tab-content scalability-section">
+                <h2>Escalabilidad
+                    <button class="audio-btn" onclick="speakText('Escalabilidad.')">🔊</button>
+                </h2>
+                
+                <h3>Ciclo de Crecimiento
+                    <button class="audio-btn" onclick="speakText('Ciclo de Crecimiento. Los graduados consiguen empleo formal, mayor contribución a la economía nacional y estudiantes destacados se convierten en instructores.')">🔊</button>
+                </h3>
+                
+                <ul>
+                    <li>Los graduados consiguen empleo formal</li>
+                    <li>Mayor contribución a la economía nacional</li>
+                    <li>Estudiantes destacados se convierten en instructores</li>
+                </ul>
+                
+                <div class="highlight">
+                    <p>Investigación → Análisis → Diseño → Implementación → Ventas</p>
+                </div>
+                
+                <div class="image-gallery">
+                    <img src="imagenes/Imagen Graduados del programa.jgp" alt="Graduados del programa">
+                    <img src="imagenes/Imagen Nuevos instructores capacitándose.png" alt="Nuevos instructores capacitándose">
+                </div>
+            </div>
+           
+    
+    <footer>
+        <p>Muchas gracias por su atención. Que tenga un buen día.</p>
+    </footer>
+    
+    <script>
+        // Funcionalidad para las pestañas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remover clase active de todas las pestañas y contenidos
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Agregar clase active a la pestaña clickeada
+                tab.classList.add('active');
+                
+                // Mostrar el contenido correspondiente
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Función para texto a voz
+        function speakText(text) {
+            // Detener cualquier audio previo
+            stopSpeech();
+            
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.volume = 1;
+            speech.rate = 0.9; // Un poco más lento para mejor comprensión
+            speech.pitch = 1;
+            speech.lang = 'es-ES';
+            
+            window.speechSynthesis.speak(speech);
+        }
+        
+        // Función para detener audio
+        function stopSpeech() {
+            window.speechSynthesis.cancel();
+        }
+        
+        // Funcionalidad para los controles de accesibilidad
+        document.getElementById('contrast-btn').addEventListener('click', function() {
+            document.body.style.filter = 'invert(1) contrast(1.5)';
+        });
+        
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            document.body.style.filter = 'none';
+        });
+        
+        // Navegación por teclado para pestañas
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                const tabs = Array.from(document.querySelectorAll('.tab'));
+                const activeTab = document.querySelector('.tab.active');
+                let currentIndex = tabs.indexOf(activeTab);
+                
+                if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex + 1) % tabs.length;
+                } else if (e.key === 'ArrowLeft') {
+                    currentIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                }
+                
+                tabs[currentIndex].click();
+                tabs[currentIndex].focus();
+            }
+        });
+        
+        // Detener audio cuando se cambia de pestaña
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', stopSpeech);
+        });
+    </script>
+</body>
+</html>
